@@ -1,0 +1,30 @@
+# Ignore Node.js modules
+node_modules/
+npm-debug.log*
+
+# Ignore TypeScript build artifacts
+*.js
+*.js.map
+
+# Ignore Drizzle files
+drizzle.config.js
+drizzle.config.ts
+drizzle.env
+drizzle.meta.ts
+
+# Ignore TypeScript build artifacts
+*.tsbuildinfo
+
+# Ignore VS Code files
+.vscode/
+*.code-workspace
+
+# Ignore local databases
+*.db
+*.sqlite
+
+# Ignore local logs
+*.log
+
+# Ignore local secrets
+*.env
