@@ -55,3 +55,11 @@ export interface InventoryStats {
   outOfStockItems: number;
   recentMovements: StockMovement[];
 }
+
+export interface InventoryItem {
+    productId: string;
+    warehouseId: string;
+    quantity: number;
+}
+
+export interface UpdateInventoryItem extends Partial<InventoryItem> {}

@@ -8,3 +8,11 @@ export interface ProductWithStock extends Product {
   stockQuantity?: number;
   warehouseId?: string;
 }
+
+export interface CreateProductInput {
+    name: string;
+    sku: string;
+    price: number;
+}
+
+export interface UpdateProductInput extends Partial<CreateProductInput> {}

@@ -1,5 +1,6 @@
 import express from 'express';
 import cors from 'cors';
+import router from './router/index';
 
 const app = express();
 
@@ -10,5 +11,6 @@ app.get('/health', (_, res) => {
   res.json({ status: 'ok' });
 });
 
+router(app);
 
 export default app;

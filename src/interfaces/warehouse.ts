@@ -14,3 +14,10 @@ export interface WarehouseStats {
   totalStockItems: number;
   totalProducts: number;
 }
+
+export interface CreateWarehouseInput {
+    name: string;
+    location?: string;
+}
+
+export interface UpdateWarehouseInput extends Partial<CreateWarehouseInput> {}
