@@ -5,9 +5,6 @@ import bcrypt from 'bcryptjs';
 import jwt from 'jsonwebtoken';
 import { LoginInput, RegisterInput } from '../../interfaces/auth.js';
 
-
-
-
 export class AuthService {
     private generateToken(userId: string, role: string): string {
         return jwt.sign(
@@ -18,47 +15,48 @@ export class AuthService {
     }
 
     async register(data: RegisterInput) {
-        // Check if user already exists
-        const [existingUser] = await db
+        try {
+            const [existingUser] = await db
             .select()
             .from(users)
-            .where(eq(users.email, data.email));
+            .where(eq(users.email, data.email))
+            .limit(1);
 
-        if (existingUser) {
-            throw new Error('Email already in use');
-        }
+            if (existingUser) {
+                throw new Error('Email already in use');
+            }
 
-        // Hash password
-        const salt = await bcrypt.genSalt(10);
-        const hashedPassword = await bcrypt.hash(data.password, salt);
+            const hashedPassword = await bcrypt.hash(data.password, 10);
 
-        // Create user
-        const [newUser] = await db
+            const [newUser] = await db
             .insert(users)
             .values({
                 name: data.name,
                 email: data.email,
                 passwordHash: hashedPassword,
-                role: data.role || 'staff'
+                role: data.role ?? 'staff',
             })
-            .returning();
+            .returning({
+                id: users.id,
+                name: users.name,
+                email: users.email,
+                role: users.role,
+            });
 
-        if (!newUser) {
-            throw new Error('Failed to create user');
+            if (!newUser) {
+                throw new Error('Failed to create user');
+            }
+
+            const token = this.generateToken(newUser.id ?? '', newUser.role ?? 'staff');
+
+            return {
+                user: newUser,
+                token,
+            };
+        } catch (err) {
+            console.error('DB ERROR DETAIL:', err);
+            throw err;
         }
-
-        // Generate token
-        const token = this.generateToken(newUser.id, newUser.role || 'staff');
-
-        return {
-            user: {
-                id: newUser.id,
-                name: newUser.name || '',
-                email: newUser.email,
-                role: newUser.role || 'staff'
-            },
-            token
-        };
     }
 
     async login(data: LoginInput) {

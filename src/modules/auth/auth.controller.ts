@@ -6,16 +6,16 @@ import { responseUtils } from '../../utils/response';
 
 export class AuthController {
     async register(req: Request, res: Response) {
+        const userData = req.body as RegisterInput;
+        const result = await authService.register(userData);
+        return responseUtils.sendSuccess(
+            res,
+            result,
+            StatusCodes.CREATED,
+            'User registered successfully'
+        );
         try {
-            const userData = req.body as RegisterInput;
-            const result = await authService.register(userData);
             
-            return responseUtils.sendSuccess(
-                res,
-                result,
-                StatusCodes.CREATED,
-                'User registered successfully'
-            );
         } catch (error: any) {
             return responseUtils.sendError(
                 res,
