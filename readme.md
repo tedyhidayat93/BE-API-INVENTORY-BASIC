@@ -83,6 +83,13 @@ yarn db:migrate
    yarn start
    ```
 
+## PRD
+Content :
+- Flowchart
+- ERD
+- Schema Model
+`https://docs.google.com/document/d/1iSiy8gN7ZpvbApnP2HTCnf9pYTCL6UaZ9A9YU_99GLw/edit?usp=sharing`
+
 ## API Documentation
 
 After starting the server, you can access:
