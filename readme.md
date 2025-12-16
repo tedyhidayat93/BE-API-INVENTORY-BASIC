@@ -67,6 +67,8 @@ yarn db:migrate
 
 ## Running the Application
 
+
+### Backend
 1. **Development Mode**
    ```bash
    npm run dev
@@ -82,6 +84,8 @@ yarn db:migrate
    yarn build
    yarn start
    ```
+### Frontend
+For frontend repository, please visit : `https://github.com/tedyhidayat93/Inventory-Reactjs`
 
 ## PRD
 Content :
