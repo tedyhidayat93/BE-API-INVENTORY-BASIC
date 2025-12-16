@@ -72,6 +72,7 @@ export class InventoryService {
                     productId: stocks.productId,
                     productName: products.name,
                     productUnitPrice: products.price,
+                    productSku: products.sku,
                     warehouseId: stocks.warehouseId,
                     warehouseName: warehouses.name,
                     totalPrice: sql<number>`${products.price} * ${stocks.quantity}`,
