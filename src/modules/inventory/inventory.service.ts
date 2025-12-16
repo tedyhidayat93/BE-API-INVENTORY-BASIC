@@ -71,13 +71,17 @@ export class InventoryService {
                     id: stocks.id,
                     productId: stocks.productId,
                     productName: products.name,
+                    productUnitPrice: products.price,
                     warehouseId: stocks.warehouseId,
+                    warehouseName: warehouses.name,
+                    totalPrice: sql<number>`${products.price} * ${stocks.quantity}`,
                     quantity: stocks.quantity,
                     lastUpdated: stocks.updatedAt
                 })
                 .from(stocks)
                 .where(eq(stocks.warehouseId, warehouseId))
-                .leftJoin(products, eq(products.id, stocks.productId));
+                .leftJoin(products, eq(products.id, stocks.productId))
+                .leftJoin(warehouses, eq(warehouses.id, stocks.warehouseId))
             
             return items;
         } catch (error: any) {
